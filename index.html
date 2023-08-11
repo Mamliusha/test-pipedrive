@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <iframe src="https://api.pipedrive.com" width="100%" height="600"></iframe>
+    <script>
+        async function saveToCrm(dealData) {
+            const apiUrl = 'https://test.pipedrive.com/v1/deals';
+            const apiToken = 'ваш ключ';
+
+            try {
+                const response = await fetch(`${apiUrl}?api_token=${apiToken}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dealData)
+                });
+
+                const responseData = await response.json();
+                console.log('Deal has been created:', responseData);
+            } catch (error) {
+                console.error('Error occurred:', error);
+            }
+        }
+
+        const dealData = {
+            title: 'New Deal',
+            value: 1,
+            person_id: 123,
+            organization_id: 456
+        };
+
+        saveToCrm(dealData);
+    </script>
+</body>
+</html>
